@@ -36,6 +36,9 @@ class Settings(BaseSettings):
     OUGHT_INFERENCE_API_KEY: str = ""
     ELICIT_AUTH_TOKEN: str = ""
 
+    GENAI_KEY: str = ""
+    GENAI_API: AnyHttpUrl = "https://bam-api.res.ibm.com/v1/"
+
     def __get_and_store(self, setting_name: str, prompt: Optional[str] = None) -> str:
         # We use [__getattribute__] to read these attributes, so that we can
         # prompt the user for them if they are not already set.
@@ -59,6 +62,7 @@ class Settings(BaseSettings):
             OUGHT_INFERENCE_API_KEY=None,
             ELICIT_AUTH_TOKEN="Enter Elicit Auth Token (you can find it by checking idToken in cookies for Elicit. "
             "The cookie should NOT start with Bearer; it should just be a string of letters and numbers): ",
+            GENAI_KEY="Enter IBM's GenAI API key: ",
         )
         if name in prompts and not result:
             return self.__get_and_store(name, prompts[name])
